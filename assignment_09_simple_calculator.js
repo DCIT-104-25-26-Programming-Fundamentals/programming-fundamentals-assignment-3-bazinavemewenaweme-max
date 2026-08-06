@@ -75,3 +75,94 @@
 // =============================================================================
 
 
+
+
+const readlineSync=require('readline-sync');
+
+// this function adds two numbers
+function add(a,b){
+return a+b;
+}
+
+// this function subtracts two numbers
+function subtract(a,b){
+return a-b;
+}
+
+// this function multiplies two numbers
+function multiply(a,b){
+return a*b;
+}
+
+// this function divides two numbers
+// returns null if dividing by zero
+function divide(a,b){
+if(b===0)return null;
+return a/b;
+}
+
+// this function finds the remainder
+function modulus(a,b){
+return a%b;
+}
+
+// this function raises a to the power of b
+function exponent(a,b){
+return a**b;
+}
+
+// this function prints the menu
+function showMenu(){
+console.log('============================');
+console.log('     SIMPLE CALCULATOR');
+console.log('============================');
+console.log('1. Addition');
+console.log('2. Subtraction');
+console.log('3. Multiplication');
+console.log('4. Division');
+console.log('5. Modulus');
+console.log('6. Exponentiation');
+console.log('7. Quit');
+}
+
+
+// this function runs the calculator
+function main(){
+while(true){
+showMenu();
+const choice=readlineSync.questionInt('Select an operation (1-7): ');
+
+if(choice===7){
+console.log('Goodbye!');
+break;
+}
+
+if(choice<1||choice>7){
+console.log('Error: Invalid choice');
+continue;
+}
+
+const num1=readlineSync.questionFloat('Enter first number : ');
+const num2=readlineSync.questionFloat('Enter second number: ');
+let result;
+let symbol;
+
+if(choice===1){result=add(num1,num2);symbol='+';}
+else if(choice===2){result=subtract(num1,num2);symbol='-';}
+else if(choice===3){result=multiply(num1,num2);symbol='*';}
+else if(choice===4){
+result=divide(num1,num2);
+symbol='/';
+if(result===null){
+console.log('Error: Cannot divide by zero.');
+continue;
+}
+
+}
+else if(choice===5){result=modulus(num1,num2);symbol='%';}
+else if(choice===6){result=exponent(num1,num2);symbol='**';}
+
+console.log(`Result: ${num1} ${symbol} ${num2} = ${result.toFixed(2)}`);
+}
+}
+main();
