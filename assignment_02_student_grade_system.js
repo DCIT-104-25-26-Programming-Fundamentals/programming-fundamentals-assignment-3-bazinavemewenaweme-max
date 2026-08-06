@@ -50,3 +50,40 @@
 // =============================================================================
 
 
+
+
+const readlineSync=require('readline-sync');
+
+// this function checks the score and returns the grade
+
+function getGrade(s){
+
+    // returns null if the score is invalid
+if(s<0||s>100)return null;
+
+if(s>=80)return'A';
+
+else if(s>=70)return'B';
+
+else if(s>=60)return'C';
+
+else if(s>=50)return'D';
+
+else return'F';
+
+}
+
+
+
+// this function gets input from user and prints the grade
+function main(){
+const s=readlineSync.questionInt('Enter student score (0-100): ');
+const g=getGrade(s);
+if(g===null)console.log('Error: Score must be between 0 and 100.');
+else console.log(`Grade: ${g}`);
+}
+
+
+
+
+main();
