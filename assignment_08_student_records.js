@@ -85,3 +85,145 @@
 // =============================================================================
 
 
+
+
+
+const readlineSync = require("readline-sync");
+
+// this Array is used to store all student records
+let students = [];
+
+
+// This function is used for adding a new student to the system.
+function addStudent() {
+    const name = readlineSync.question("Student name: ");
+    const id = readlineSync.questionInt("Student ID: ");
+
+    const numberOfScores = readlineSync.questionInt("How many scores? ");
+    let scores = [];
+
+    for (let i = 0; i < numberOfScores; i++) {
+        let score = readlineSync.questionFloat(`Enter score ${i + 1}: `);
+        scores.push(score);
+    }
+
+    const student = {
+        name: name,
+        id: id,
+        scores: scores
+    };
+
+    students.push(student);
+
+    console.log(`Student "${name}" added successfully.`);
+}
+
+
+// This function is used for calculating the average score of a student's scores.
+function calculateAverage(scores) {
+    let total = 0;
+
+    for (let score of scores) {
+        total += score;
+    }
+
+    return total / scores.length;
+}
+
+
+// This function is used for displaying all student records with their average scores.
+function displayStudents() {
+    if (students.length === 0) {
+        console.log("No students have been added yet.");
+        return;
+    }
+
+    console.log("\n===============================");
+    console.log("STUDENT RECORDS");
+    console.log("===============================");
+
+    for (let student of students) {
+        const average = calculateAverage(student.scores);
+
+        console.log(`Name   : ${student.name}`);
+        console.log(`ID     : ${student.id}`);
+        console.log(`Scores : ${student.scores.join(", ")}`);
+        console.log(`Average: ${average.toFixed(2)}`);
+        console.log("-------------------------------");
+    }
+}
+
+
+// This function is used for searching and finding a student using their ID.
+function findStudent(id) {
+    for (let student of students) {
+        if (student.id === id) {
+            return student;
+        }
+    }
+
+    return null;
+}
+
+
+// This function is used for calculating and displaying the average score of a specific student.
+function averageForStudent() {
+    const id = readlineSync.questionInt("Enter student ID: ");
+
+    const student = findStudent(id);
+
+    if (student === null) {
+        console.log("Error: Student ID not found.");
+        return;
+    }
+
+    const average = calculateAverage(student.scores);
+
+    console.log(`${student.name}'s average score: ${average.toFixed(2)}`);
+}
+
+
+// This function is used for displaying the main menu of the Student Record System.
+function showMenu() {
+    console.log("\n================================");
+    console.log("   STUDENT RECORD SYSTEM MENU");
+    console.log("================================");
+    console.log("1. Add student");
+    console.log("2. Display all students");
+    console.log("3. Calculate average score");
+    console.log("4. Quit");
+}
+
+
+// This function is used for running the Student Record System until the user chooses to quit.
+function main() {
+    while (true) {
+        showMenu();
+
+        const choice = readlineSync.questionInt("Enter your choice (1-4): ");
+
+        switch (choice) {
+            case 1:
+                addStudent();
+                break;
+
+            case 2:
+                displayStudents();
+                break;
+
+            case 3:
+                averageForStudent();
+                break;
+
+            case 4:
+                console.log("Goodbye!");
+                return;
+
+            default:
+                console.log("Error: Invalid choice.");
+        }
+    }
+}
+
+
+main();
