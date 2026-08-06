@@ -60,3 +60,49 @@
 // =============================================================================
 
 
+
+
+const readlineSync = require("readline-sync");
+
+
+// This function is used for displaying the multiplication table of one number.
+function singleTable() {
+    const number = readlineSync.questionInt("Enter a number: ");
+
+    console.log(`\nMultiplication Table for ${number}:`);
+
+    for (let i = 1; i <= 12; i++) {
+        console.log(`${number} x ${i} = ${number * i}`);
+    }
+}
+
+
+// This function is used for displaying multiplication tables from 1 up to a given number.
+function multipleTables() {
+    const n = readlineSync.questionInt("\nEnter a positive integer: ");
+
+    if (n <= 0) {
+        console.log("Error: Please enter a positive integer.");
+        return;
+    }
+
+    for (let number = 1; number <= n; number++) {
+        console.log(`\nMultiplication Table for ${number}:`);
+
+        for (let i = 1; i <= 12; i++) {
+            console.log(`${number} x ${i} = ${number * i}`);
+        }
+
+        console.log("---------------------------");
+    }
+}
+
+
+// This function is used for running the multiplication table program.
+function main() {
+    singleTable();
+    multipleTables();
+}
+
+
+main();
