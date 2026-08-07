@@ -55,3 +55,64 @@
 // =============================================================================
 
 
+
+
+const readlineSync = require("readline-sync");
+
+
+// This function is used for printing the Fibonacci sequence.
+function printFibonacci() {
+    const n = readlineSync.questionInt("How many terms? ");
+
+    if (n <= 0) {
+        console.log("Error: Please enter a positive integer.");
+        return;
+    }
+
+    let first = 0;
+    let second = 1;
+
+    let sequence = "";
+
+    for (let i = 1; i <= n; i++) {
+        sequence += first + " ";
+
+        let next = first + second;
+        first = second;
+        second = next;
+    }
+
+    console.log("Fibonacci sequence: " + sequence);
+}
+
+
+// This function is used for checking a Fibonacci number.
+function checkFibonacci() {
+    const number = readlineSync.questionInt("Enter a number to check: ");
+
+    let first = 0;
+    let second = 1;
+
+    while (first < number) {
+        let next = first + second;
+        first = second;
+        second = next;
+    }
+
+    if (first === number) {
+        console.log(number + " is a Fibonacci number.");
+    } else {
+        console.log(number + " is NOT a Fibonacci number.");
+    }
+}
+
+
+// This function is used for running the program.
+function main() {
+    printFibonacci();
+    console.log();
+    checkFibonacci();
+}
+
+
+main();
